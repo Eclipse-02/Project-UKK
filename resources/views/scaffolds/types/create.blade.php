@@ -106,7 +106,7 @@
                         </select>
                         <!--end::Select-->
                         <!--begin::Error-->
-                        @error('bed_qty')
+                        @error('bed_type')
                             <span class="invalid-feedback d-block" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

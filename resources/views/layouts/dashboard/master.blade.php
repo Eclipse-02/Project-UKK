@@ -191,8 +191,17 @@
 						</div>
 						<!--end::Toolbar-->
 						<!--begin::Post-->
-						<h1 class="ps-5">Halo, {{ auth()->user()->name }}</h1>
-						@yield('content')
+						<div class="post d-flex flex-column-fluid" id="kt_post">
+							<!--begin::Container-->
+							<div id="kt_content_container" class="container-xxl">
+								<!--begin::Row-->
+								<div class="row gy-5 g-xl-8">
+									@yield('content')
+								</div>
+                                <!--end::Row-->
+							</div>
+							<!--end::Container-->
+						</div>
 						<!--end::Post-->
 					</div>
 					<!--end::Content-->
@@ -1997,6 +2006,10 @@
 		<script src="{{ asset('source/html/theme/demo1/dist/assets/js/custom/apps/chat/chat.js') }}"></script>
 		<script src="{{ asset('source/html/theme/demo1/dist/assets/js/custom/modals/create-app.js') }}"></script>
 		<script src="{{ asset('source/html/theme/demo1/dist/assets/js/custom/modals/upgrade-plan.js') }}"></script>
+		<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+		<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+		<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+		@stack('scripts')
 		<!--end::Page Custom Javascript-->
 		<!--end::Javascript-->
 	</body>

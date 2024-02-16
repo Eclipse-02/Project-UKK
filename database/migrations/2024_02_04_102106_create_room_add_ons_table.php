@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('room_addons', function (Blueprint $table) {
+        Schema::create('room_add_ons', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
             $table->bigInteger('price');

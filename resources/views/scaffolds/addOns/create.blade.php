@@ -9,7 +9,7 @@
             <div class="card-header">
                 <!--begin::Card title-->
                 <div class="card-title m-0 flex-column">
-                    <h3 class="fw-bolder m-0">Edit AddOn Data</h3>
+                    <h3 class="fw-bolder m-0">Edit Add On Data</h3>
                     <div class="text-muted fs-7 fw-bold">Edit Data Tambahan</div>
                 </div>
                 <!--end::Card title-->

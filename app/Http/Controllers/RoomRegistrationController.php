@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\RoomRegistation;
+use App\DataTables\RoomRegistrationDataTable;
+use App\Models\RoomRegistration;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class RoomRegistationController extends Controller
+class RoomRegistrationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(RoomRegistrationDataTable $dataTable)
     {
-        //
+        return $dataTable->render('scaffolds.registrations.index');
     }
 
     /**
@@ -21,7 +22,7 @@ class RoomRegistationController extends Controller
      */
     public function create()
     {
-        //
+        return view('scaffolds.registrations.create');
     }
 
     /**
@@ -35,7 +36,7 @@ class RoomRegistationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(RoomRegistation $roomRegistation)
+    public function show(RoomRegistration $roomRegistration)
     {
         //
     }
@@ -43,7 +44,7 @@ class RoomRegistationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(RoomRegistation $roomRegistation)
+    public function edit(RoomRegistration $roomRegistration)
     {
         //
     }
@@ -51,7 +52,7 @@ class RoomRegistationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, RoomRegistation $roomRegistation)
+    public function update(Request $request, RoomRegistration $roomRegistration)
     {
         //
     }
@@ -59,7 +60,7 @@ class RoomRegistationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(RoomRegistation $roomRegistation)
+    public function destroy(RoomRegistration $roomRegistration)
     {
         //
     }

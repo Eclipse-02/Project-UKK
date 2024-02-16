@@ -23,7 +23,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
             $table->foreign('type_id')->references('id')->on('room_types')->onDelete('cascade');
-            $table->foreign('addon_id')->references('id')->on('room_addons')->onDelete('cascade');
+            $table->foreign('addon_id')->references('id')->on('room_add_ons')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

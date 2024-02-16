@@ -19,6 +19,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('facilities', function () {
+    return view('facilities');
+});
+
+Route::get('roomtype', function () {
+    return view('roomtype');
+});
 
 Auth::routes(['verify' => true]);
 

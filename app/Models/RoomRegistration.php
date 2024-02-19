@@ -18,4 +18,20 @@ class RoomRegistration extends Model
         'checkout',
         'promotion_code'
     ];
+
+    public function room() {
+        return $this->belongsTo(Room::class, 'room_id');
+    }
+
+    public function type() {
+        return $this->belongsTo(RoomType::class, 'type_id');
+    }
+
+    public function addOn() {
+        return $this->belongsTo(RoomAddOn::class, 'add_on_id');
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

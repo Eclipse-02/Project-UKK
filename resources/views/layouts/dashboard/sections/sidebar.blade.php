@@ -131,7 +131,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="../../demo1/dist/dashboards/light-aside.html">
+                    <a class="menu-link" href="{{ route('types.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -161,7 +161,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="../../demo1/dist/landing.html">
+                    <a class="menu-link" href="{{ route('codes.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/communication/com001.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -250,7 +250,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="../../demo1/dist/landing.html">
+                    <a class="menu-link" href="{{ route('registrations.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/communication/com001.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -617,7 +617,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="../../demo1/dist/landing.html">
+                    <a class="menu-link" href="{{ route('rooms.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/communication/com001.svg-->
                             <span class="svg-icon svg-icon-2">

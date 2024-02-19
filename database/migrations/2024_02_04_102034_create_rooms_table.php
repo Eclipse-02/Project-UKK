@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('type_id');
             $table->integer('room_number');
-            $table->string('facility', 200);
+            $table->string('facility', 200)->nullable();
             $table->string('status', 3);
             $table->timestamps();
             $table->foreign('type_id')->references('id')->on('room_types')->onDelete('cascade');

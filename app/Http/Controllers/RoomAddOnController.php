@@ -84,6 +84,10 @@ class RoomAddOnController extends Controller
             'price' => 'required',
         ]);
 
+        $price = str_replace('Rp. ', '', $request->price);
+        $price = str_replace('_', '', $price);
+        $price = str_replace('.', '', $price);
+
         if ($validator->fails()) {
             toastr()->error('Something went wrong!', 'Oops!');
             return redirect()->back()->withErrors($validator)->withInput();

@@ -26,7 +26,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::get('facilities', function () {
     return view('facilities');
 });
@@ -34,8 +33,6 @@ Route::get('facilities', function () {
 Route::get('roomtype', function () {
     return view('roomtype');
 });
-
-
 
 Auth::routes(['verify' => true]);
 

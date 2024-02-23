@@ -24,19 +24,19 @@ class RoomRegistration extends Model
         'addons' => 'array'
     ];
 
-    function room() : BelongsTo {
-        return $this->belongsTo(Room::class);
+    public function room() {
+        return $this->belongsTo(Room::class, 'room_id');
     }
 
-    function type() : BelongsTo {
-        return $this->belongsTo(RoomType::class);
+    public function type() {
+        return $this->belongsTo(RoomType::class, 'type_id');
     }
 
-    function addOn() : BelongsTo {
-        return $this->belongsTo(RoomAddOn::class);
+    public function addOn() {
+        return $this->belongsTo(RoomAddOn::class, 'add_on_id');
     }
 
-    function user() : BelongsTo {
-        return $this->belongsTo(User::class);
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

@@ -7,9 +7,11 @@ use App\Models\RoomRegistration;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\DataTables\RoomRegistrationDataTable;
+use App\Events\LogEvent;
 use App\Models\Room;
 use App\Models\RoomAddOn;
 use App\Models\RoomType;
+use App\Models\User;
 
 class RoomRegistrationController extends Controller
 {
@@ -34,39 +36,47 @@ class RoomRegistrationController extends Controller
      */
     public function store(Request $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'room_id' => 'required',
-        //     'type_id' => 'required',
-        //     'add_on_id' => 'required',
-        //     'user_id' => 'required',
-        //     'checkin' => 'required',
-        //     'checkout' => 'required',
-        // ]);
+        $validator = Validator::make($request->all(), [
+            'room_id' => 'required',
+            'type_id' => 'required',
+            'addons' => 'required',
+            'user_id' => 'required',
+            'checkin' => 'required',
+            'checkout' => 'required',
+        ]);
 
-        // if ($validator->fails()) {
-        //     toastr()->error('Something went wrong!', 'Oops!');
-        //     return redirect()->back()->withErrors($validator)->withInput();
-        // } else {
-        //     RoomRegistration::create([
-        //         'room_id' => $request->room_id,
-        //         'type_id' => $request->type_id,
-        //         'add_on_id' => $request->add_on_id,
-        //         'user_id' => $request->user_id,
-        //         'checkin' => $request->checkin,
-        //         'checkout' => $request->checkout,
-        //     ]);
+        $dates = explode(' - ', $request->duration);
 
-        //     toastr()->success('Data Saved Successfully!', 'Success!');
-        //     return redirect()->route('registrations.index');
-        // }
+        $user = User::where('id', $request->user_id)->first();
+        $room = Room::where('id', $request->room_id)->first();
+
+        if ($validator->fails()) {
+            toastr()->error('Something went wrong!', 'Oops!');
+            return redirect()->back()->withErrors($validator)->withInput();
+        } else {
+            RoomRegistration::create([
+                'room_id' => $request->room_id,
+                'type_id' => $request->type_id,
+                'add_on_id' => $request->add_on_id,
+                'user_id' => $request->user_id,
+                'checkin' => $dates[0],
+                'checkout' => $dates[0],
+                'status' => $request->status,
+            ]);
+
+            event(new LogEvent($user->name, $room->room_number, $request->status));
+
+            toastr()->success('Data Saved Successfully!', 'Success!');
+            return redirect()->route('registrations.index');
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(RoomRegistration $reg)
+    public function show($reg)
     {
-        $data = $reg;
+        $data = RoomRegistration::where('id', $reg)->with(['room', 'type', 'addOn', 'user'])->first();
 
         return view('scaffolds.registrations.view', compact('data'));
     }
@@ -90,13 +100,13 @@ class RoomRegistrationController extends Controller
     public function update(Request $request, RoomRegistration $reg)
     {
         $validator = Validator::make($request->all(), [
-            'room_id' => 'required',
-            'type_id' => 'required',
-            'addon_id' => 'required',
-            'user_id' => 'required',
+            'status' => 'required',
         ]);
 
         $dates = explode(' - ', $request->duration);
+
+        $user = User::where('id', $request->user_id)->first();
+        $room = Room::where('id', $request->room_id)->first();
 
         if ($validator->fails()) {
             toastr()->error('Something went wrong!', 'Oops!');
@@ -109,7 +119,10 @@ class RoomRegistrationController extends Controller
                 'user_id' => $request->user_id,
                 'checkin' => $dates[0],
                 'checkout' => $dates[0],
+                'status' => $request->status,
             ]);
+
+            event(new LogEvent($user->name, $room->room_number, $request->status));
 
             toastr()->success('Data Updated Successfully!', 'Success!');
             return redirect()->route('facilities.index');
@@ -121,9 +134,6 @@ class RoomRegistrationController extends Controller
      */
     public function destroy(RoomRegistration $reg)
     {
-        $reg->delete();
-
-        toastr()->success('Data Successfully Deleted!', 'Success!');
-        return redirect()->route('registrations.index');
+        //
     }
 }

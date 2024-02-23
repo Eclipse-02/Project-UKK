@@ -7,8 +7,8 @@
     <div class="card-header cursor-pointer my-2">
         <!--begin::Card title-->
         <div class="card-title m-0 flex-column">
-            <h3 class="fw-bolder m-0">Add On Details</h3>
-            <div class="text-muted fs-7 fw-bold">Detail Tambahan</div>
+            <h3 class="fw-bolder m-0">Registration Details</h3>
+            <div class="text-muted fs-7 fw-bold">Detail Registrasi</div>
         </div>
         <!--end::Card title-->
         <!--start::Button-->
@@ -31,11 +31,11 @@
         <!--begin::Input group-->
         <div class="row mb-10">
             <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">Name</label>
+            <label class="col-lg-4 fw-bold text-muted">Guest Name</label>
             <!--begin::Label-->
             <!--begin::Label-->
             <div class="col-lg-8">
-                <span class="fw-bold fs-6 text-gray-800">{{ $data->name }}</span>
+                <span class="fw-bold fs-6 text-gray-800">{{ $data->user->name }}</span>
             </div>
             <!--begin::Label-->
         </div>
@@ -43,11 +43,54 @@
         <!--begin::Input group-->
         <div class="row mb-10">
             <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">Price</label>
+            <label class="col-lg-4 fw-bold text-muted">Room Number</label>
             <!--begin::Label-->
             <!--begin::Label-->
             <div class="col-lg-8">
-                <span class="fw-bold fs-6 text-gray-800">{{ $data->price }}</span>
+                <span class="fw-bold fs-6 text-gray-800">{{ $data->room->room_number }}</span>
+            </div>
+            <!--begin::Label-->
+        </div>
+        <!--end::Input group-->
+        <!--begin::Input group-->
+        <div class="row mb-10">
+            <!--begin::Label-->
+            <label class="col-lg-4 fw-bold text-muted">Add Ons</label>
+            <!--begin::Label-->
+            <!--begin::Label-->
+            <div class="col-lg-8">
+                <span class="fw-bold fs-6 text-gray-800">
+                    @if ($data->addon_id == null)
+                        -
+                    @endif
+                    @foreach ($data->addons as $i)
+                        - {{ $i }}
+                    @endforeach
+                </span>
+            </div>
+            <!--begin::Label-->
+        </div>
+        <!--end::Input group-->
+        <!--begin::Input group-->
+        <div class="row mb-10">
+            <!--begin::Label-->
+            <label class="col-lg-4 fw-bold text-muted">Duration</label>
+            <!--begin::Label-->
+            <!--begin::Label-->
+            <div class="col-lg-8">
+                <span class="fw-bold fs-6 text-gray-800">{{ Carbon\Carbon::format($data->checkin)->isoFormat('D, d M Y') - Carbon\Carbon::format($data->checkout)->isoFormat('D, d M Y') }}</span>
+            </div>
+            <!--begin::Label-->
+        </div>
+        <!--end::Input group-->
+        <!--begin::Input group-->
+        <div class="row mb-10">
+            <!--begin::Label-->
+            <label class="col-lg-4 fw-bold text-muted">Promotion Code</label>
+            <!--begin::Label-->
+            <!--begin::Label-->
+            <div class="col-lg-8">
+                <span class="fw-bold fs-6 text-gray-800">{{ $data->promotion_code }}</span>
             </div>
             <!--begin::Label-->
         </div>

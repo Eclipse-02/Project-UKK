@@ -106,21 +106,14 @@
                     <div class="fv-row mb-5">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                            <span class="required">Addons</span>
+                            <span class="required">Duration</span>
                         </label>
                         <!--end::Label-->
-                        @foreach ($addons as $i)
-                            <!--begin::Checkbox-->
-                            <div class="form-check form-check-custom form-check-solid">
-                                <input class="form-check-input" type="checkbox" name="facility[]" value="{{ $i->name }}" id="{{ $i->name }}" {{ old('facility[]') == $i->name ? 'checked' : '' }} />
-                                <label class="form-check-label" for="{{ $i->name }}">
-                                    {{ $i->name }} - {{ $i->price }}
-                                </label>
-                            </div>
-                            <!--end::Checkbox-->
-                        @endforeach
+                        <!--begin::Input-->
+                        <input class="form-control form-control form-control-solid @error('duration')is-invalid @enderror" type="text" id="duration" name="duration" value="{{ old('duration') ? old('duration') : (Carbon\Carbon::parse($data->begin_at)->format('m/d/Y') . ' - ' . Carbon\Carbon::parse($data->end_at)->format('m/d/Y')) }}" />
+                        <!--end::Input-->
                         <!--begin::Error-->
-                        @error('addon_id')
+                        @error('duration')
                             <span class="invalid-feedback d-block" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -132,14 +125,20 @@
                     <div class="fv-row mb-5">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                            <span class="required">Duration</span>
+                            <span class="required">Status</span>
                         </label>
                         <!--end::Label-->
-                        <!--begin::Input-->
-                        <input class="form-control form-control form-control-solid @error('duration')is-invalid @enderror" type="text" id="duration" name="duration" value="{{ old('duration') ? old('duration') : (Carbon\Carbon::parse($data->begin_at)->format('m/d/Y') . ' - ' . Carbon\Carbon::parse($data->end_at)->format('m/d/Y')) }}" />
-                        <!--end::Input-->
+                        <!--begin::Select-->
+                        <select class="form-select form-select-solid @error('status')is-invalid @enderror" name="status" id="status" data-control="select2" data-placeholder="Select Bed Type">
+                            <option></option>
+                            <option value="AV" {{ old('status') ? (old('status') == 'AV' ? 'selected' : '') : ($data->status == 'AV' ? 'selected' : '') }}>Available</option>
+                            <option value="BK" {{ old('status') ? (old('status') == 'BK' ? 'selected' : '') : ($data->status == 'BK' ? 'selected' : '') }}>Booked</option>
+                            <option value="IC" {{ old('status') ? (old('status') == 'IC' ? 'selected' : '') : ($data->status == 'IC' ? 'selected' : '') }}>In Cleaning</option>
+                            <option value="CL" {{ old('status') ? (old('status') == 'CL' ? 'selected' : '') : ($data->status == 'CL' ? 'selected' : '') }}>Cancelled</option>
+                        </select>
+                        <!--end::Select-->
                         <!--begin::Error-->
-                        @error('duration')
+                        @error('status')
                             <span class="invalid-feedback d-block" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -161,11 +160,3 @@
     </div>
     <!--end::Col-->
 @endsection
-
-@push('scripts')
-    <script type="text/javascript">
-        Inputmask("Rp. 999.999.999", {
-            "numericInput": true
-        }).mask("#price");
-    </script>
-@endpush

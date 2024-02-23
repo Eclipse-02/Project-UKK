@@ -13,12 +13,28 @@ class RoomRegistration extends Model
     protected $fillable = [
         'room_id',
         'type_id',
-        'add_on_id',
+        'addons',
         'user_id',
         'checkin',
         'checkout',
         'promotion_code'
     ];
+
+    protected $casts = [
+        'addons' => 'array'
+    ];
+
+    function room() : BelongsTo {
+        return $this->belongsTo(Room::class);
+    }
+
+    function type() : BelongsTo {
+        return $this->belongsTo(RoomType::class);
+    }
+
+    function addOn() : BelongsTo {
+        return $this->belongsTo(RoomAddOn::class);
+    }
 
     function user() : BelongsTo {
         return $this->belongsTo(User::class);

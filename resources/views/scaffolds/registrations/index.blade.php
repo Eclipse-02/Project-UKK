@@ -64,16 +64,13 @@
                                 <!--end::Menu-->
                             </div>
                             <!--end::Wrapper-->
-                            <!--begin::Button-->
-                            <a href="{{ route('registrations.create') }}" class="btn btn-sm btn-primary">Create</a>
-                            <!--end::Button-->
                         </div>
                         <!--end::Actions-->
                     </div>
                 </div>
                 <!--end::Stats-->
                 <!--start::Table-->
-                {{ $dataTable->table(['roomregistration-table' => 'table table-striped gy-7 gs-7']) }}
+                {{ $dataTable->table(['table' => 'table table-striped gy-7 gs-7']) }}
                 <!--end::Table-->
             </div>
             <!--end::Body-->

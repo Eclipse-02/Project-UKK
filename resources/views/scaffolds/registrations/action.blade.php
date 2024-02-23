@@ -1,8 +1,8 @@
-<form action="{{ route('facilities.destroy', $id) }}" method="POST" class="text-center">
+<form action="{{ route('registrations.destroy', $id) }}" method="POST" class="text-center">
     @csrf
     @method('DELETE')
 
-    <a class="btn btn-icon btn-bg-light btn-active-color-primary btn-md me-1" href="{{ route('facilities.show', $id) }}" >
+    <a class="btn btn-icon btn-bg-light btn-active-color-primary btn-md me-1" href="{{ route('registrations.show', $id) }}" >
         <!--begin::Svg Icon | path: assets/media/icons/duotune/general/gen004.svg-->
         <span class="svg-icon svg-icon-muted svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path d="M21.7 18.9L18.6 15.8C17.9 16.9 16.9 17.9 15.8 18.6L18.9 21.7C19.3 22.1 19.9 22.1 20.3 21.7L21.7 20.3C22.1 19.9 22.1 19.3 21.7 18.9Z" fill="black"/>
@@ -11,7 +11,7 @@
         <!--end::Svg Icon-->
     </a>
 
-    <a class="btn btn-icon btn-bg-light btn-active-color-warning btn-md me-1" href="{{ route('facilities.edit', $id) }}" >
+    <a class="btn btn-icon btn-bg-light btn-active-color-warning btn-md me-1" href="{{ route('registrations.edit', $id) }}" >
         <!--begin::Svg Icon | path: assets/media/icons/duotune/general/gen055.svg-->
         <span class="svg-icon svg-icon-muted svg-icon-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path opacity="0.3" fill-rule="evenodd" clip-rule="evenodd" d="M2 4.63158C2 3.1782 3.1782 2 4.63158 2H13.47C14.0155 2 14.278 2.66919 13.8778 3.04006L12.4556 4.35821C11.9009 4.87228 11.1726 5.15789 10.4163 5.15789H7.1579C6.05333 5.15789 5.15789 6.05333 5.15789 7.1579V16.8421C5.15789 17.9467 6.05333 18.8421 7.1579 18.8421H16.8421C17.9467 18.8421 18.8421 17.9467 18.8421 16.8421V13.7518C18.8421 12.927 19.1817 12.1387 19.7809 11.572L20.9878 10.4308C21.3703 10.0691 22 10.3403 22 10.8668V19.3684C22 20.8218 20.8218 22 19.3684 22H4.63158C3.1782 22 2 20.8218 2 19.3684V4.63158Z" fill="black"/>

@@ -9,13 +9,13 @@
             <div class="card-header">
                 <!--begin::Card title-->
                 <div class="card-title m-0 flex-column">
-                    <h3 class="fw-bolder m-0">Edit Facility Data</h3>
-                    <div class="text-muted fs-7 fw-bold">Edit Data Fasilitas</div>
+                    <h3 class="fw-bolder m-0">Edit Registration Data</h3>
+                    <div class="text-muted fs-7 fw-bold">Edit Data Registrasi</div>
                 </div>
                 <!--end::Card title-->
                 <!--start::Button-->
                 <!--start::Action-->
-                <a href="{{ route('facilities.index') }}" class="btn btn-flex btn-light btn-light btn-active-primary fw-bolder align-self-center">
+                <a href="{{ route('registrations.index') }}" class="btn btn-flex btn-light btn-light btn-active-primary fw-bolder align-self-center">
                     <!--begin::Svg Icon | path: assets/media/icons/duotune/arrows/arr002.svg-->
                     <span class="svg-icon svg-icon-muted svg-icon-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -29,7 +29,7 @@
             </div>
             <!--end::Card header-->
             <!--begin::Form-->
-            <form class="form" action="{{ route('facilities.update', $data->id) }}" method="POST">
+            <form class="form" action="{{ route('registrations.update', $data->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -39,14 +39,14 @@
                     <div class="fv-row mb-5">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                            <span class="required">Name</span>
+                            <span class="required">Guest Name</span>
                         </label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <input class="form-control form-control form-control-solid @error('name')is-invalid @enderror" type="text" id="name" name="name" value="{{ old('name') ? old('name') : $data->name }}" />
+                        <input class="form-control form-control form-control-solid @error('user_id')is-invalid @enderror" type="text" id="user_id" name="user_id" value="{{ old('user_id') ? old('user_id') : $data->user->name }}" />
                         <!--end::Input-->
                         <!--begin::Error-->
-                        @error('name')
+                        @error('user_id')
                             <span class="invalid-feedback d-block" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -58,14 +58,87 @@
                     <div class="fv-row mb-5">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                            <span class="required">Description</span>
+                            <span class="required">Room Name</span>
                         </label>
                         <!--end::Label-->
-                        <!--begin::Textarea-->
-                        <textarea class="form-control form-control form-control-solid @error('desc')is-invalid @enderror" name="desc" data-kt-autosize="true">{{ old('desc') ? old('desc') : $data->desc }}</textarea>
-                        <!--end::Textarea-->
+                        <!--begin::Select-->
+                        <select class="form-select form-select-solid @error('room_id')is-invalid @enderror" name="room_id" id="room_id" data-control="select2" data-placeholder="Select Bed Type">
+                            <option></option>
+                            @foreach ($rooms as $i)
+                                <option value="{{ $i->id }}" {{ old('room_id') ? (old('room_id') == $i->id ? 'selected' : '') : ($data->room_id == $i->id ? 'selected' : '') }}>{{ $i->name }}</option>
+                            @endforeach
+                        </select>
+                        <!--end::Select-->
                         <!--begin::Error-->
-                        @error('desc')
+                        @error('room_id')
+                            <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <!--end::Error-->
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-5">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                            <span class="required">Room Type</span>
+                        </label>
+                        <!--end::Label-->
+                        <!--begin::Select-->
+                        <select class="form-select form-select-solid @error('room_type')is-invalid @enderror" name="room_type" id="room_type" data-control="select2" data-placeholder="Select Bed Type">
+                            <option></option>
+                            @foreach ($types as $i)
+                                <option value="{{ $i->id }}" {{ old('room_type') ? (old('room_type') == $i->id ? 'selected' : '') : ($data->room_type == $i->id ? 'selected' : '') }}>{{ $i->name }}</option>
+                            @endforeach
+                        </select>
+                        <!--end::Select-->
+                        <!--begin::Error-->
+                        @error('room_type')
+                            <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <!--end::Error-->
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-5">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                            <span class="required">Duration</span>
+                        </label>
+                        <!--end::Label-->
+                        <!--begin::Input-->
+                        <input class="form-control form-control form-control-solid @error('duration')is-invalid @enderror" type="text" id="duration" name="duration" value="{{ old('duration') ? old('duration') : (Carbon\Carbon::parse($data->begin_at)->format('m/d/Y') . ' - ' . Carbon\Carbon::parse($data->end_at)->format('m/d/Y')) }}" />
+                        <!--end::Input-->
+                        <!--begin::Error-->
+                        @error('duration')
+                            <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <!--end::Error-->
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-5">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                            <span class="required">Status</span>
+                        </label>
+                        <!--end::Label-->
+                        <!--begin::Select-->
+                        <select class="form-select form-select-solid @error('status')is-invalid @enderror" name="status" id="status" data-control="select2" data-placeholder="Select Bed Type">
+                            <option></option>
+                            <option value="AV" {{ old('status') ? (old('status') == 'AV' ? 'selected' : '') : ($data->status == 'AV' ? 'selected' : '') }}>Available</option>
+                            <option value="BK" {{ old('status') ? (old('status') == 'BK' ? 'selected' : '') : ($data->status == 'BK' ? 'selected' : '') }}>Booked</option>
+                            <option value="IC" {{ old('status') ? (old('status') == 'IC' ? 'selected' : '') : ($data->status == 'IC' ? 'selected' : '') }}>In Cleaning</option>
+                            <option value="CL" {{ old('status') ? (old('status') == 'CL' ? 'selected' : '') : ($data->status == 'CL' ? 'selected' : '') }}>Cancelled</option>
+                        </select>
+                        <!--end::Select-->
+                        <!--begin::Error-->
+                        @error('status')
                             <span class="invalid-feedback d-block" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -87,7 +160,3 @@
     </div>
     <!--end::Col-->
 @endsection
-
-@push('scripts')
-    
-@endpush

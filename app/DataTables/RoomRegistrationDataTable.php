@@ -3,14 +3,14 @@
 namespace App\DataTables;
 
 use App\Models\RoomRegistration;
-use Yajra\DataTables\Html\Button;
-use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Services\DataTable;
-use Yajra\DataTables\Html\Editor\Fields;
-use Yajra\DataTables\Html\Editor\Editor;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use Yajra\DataTables\Html\Button;
+use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Html\Editor\Editor;
+use Yajra\DataTables\Html\Editor\Fields;
+use Yajra\DataTables\Services\DataTable;
 
 class RoomRegistrationDataTable extends DataTable
 {
@@ -22,7 +22,16 @@ class RoomRegistrationDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'roomregistration.action')
+            ->addColumn('action', 'scaffolds.registrations.action')
+            ->addColumn('status', function($q) {
+                if ($q->status = "AV") {
+                    return "Available";
+                } else if ($q->status = "BK") {
+                    return "Booked";
+                } else {
+                    return "In Cleaning";
+                }
+            })
             ->addIndexColumn();
     }
 
@@ -40,7 +49,7 @@ class RoomRegistrationDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-                    ->setTableId('roomregistration-table')
+                    ->setTableId('table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     //->dom('Bfrtip')
@@ -63,12 +72,10 @@ class RoomRegistrationDataTable extends DataTable
     {
         return [
             Column::make('DT_RowIndex')->width(50)->title('No'),
-            Column::make('room_id')->width(100),
-            Column::make('type_id')->width(100),
-            Column::make('add_on_id')->width(100),
-            Column::make('user_id')->width(100),
+            Column::make('user.name')->width(100)->title('Guest Name'),
             Column::make('checkin')->width(100),
             Column::make('checkout')->width(100),
+            Column::make('status')->width(100),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)

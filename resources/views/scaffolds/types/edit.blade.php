@@ -9,13 +9,13 @@
             <div class="card-header">
                 <!--begin::Card title-->
                 <div class="card-title m-0 flex-column">
-                    <h3 class="fw-bolder m-0">Edit Promotion Code Data</h3>
-                    <div class="text-muted fs-7 fw-bold">Edit Data Kode Promosi</div>
+                    <h3 class="fw-bolder m-0">Edit Room Type Data</h3>
+                    <div class="text-muted fs-7 fw-bold">Edit Data Tipe Kamar</div>
                 </div>
                 <!--end::Card title-->
                 <!--start::Button-->
                 <!--start::Action-->
-                <a href="{{ route('codes.index') }}" class="btn btn-flex btn-light btn-light btn-active-primary fw-bolder align-self-center">
+                <a href="{{ route('types.index') }}" class="btn btn-flex btn-light btn-light btn-active-primary fw-bolder align-self-center">
                     <!--begin::Svg Icon | path: assets/media/icons/duotune/arrows/arr002.svg-->
                     <span class="svg-icon svg-icon-muted svg-icon-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -29,7 +29,7 @@
             </div>
             <!--end::Card header-->
             <!--begin::Form-->
-            <form class="form" action="{{ route('codes.update', $data->id) }}" method="POST">
+            <form class="form" action="{{ route('types.update', $data->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -39,14 +39,14 @@
                     <div class="fv-row mb-5">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                            <span class="required">Code Name</span>
+                            <span class="required">Type Name</span>
                         </label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <input class="form-control form-control form-control-solid @error('code_name')is-invalid @enderror" type="text" id="code_name" name="code_name" value="{{ old('code_name') ? old('code_name') : $data->code_name }}" />
+                        <input class="form-control form-control form-control-solid @error('name')is-invalid @enderror" type="text" id="name" name="name" value="{{ old('name') ? old('name') : $data->name }}" />
                         <!--end::Input-->
                         <!--begin::Error-->
-                        @error('code_name')
+                        @error('name')
                             <span class="invalid-feedback d-block" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -58,14 +58,14 @@
                     <div class="fv-row mb-5">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                            <span class="required">Discount</span>
+                            <span class="required">Price</span>
                         </label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <input class="form-control form-control form-control-solid @error('discount')is-invalid @enderror" type="text" id="discount" name="discount" value="{{ old('discount') ? old('discount') : $data->discount }}" />
+                        <input class="form-control form-control form-control-solid @error('price')is-invalid @enderror" type="text" id="price" name="price" value="{{ old('price') ? old('price') : $data->price }}" />
                         <!--end::Input-->
                         <!--begin::Error-->
-                        @error('discount')
+                        @error('price')
                             <span class="invalid-feedback d-block" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -77,14 +77,37 @@
                     <div class="fv-row mb-5">
                         <!--begin::Label-->
                         <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                            <span class="required">Duration</span>
+                            <span class="required">Bed Quantity</span>
                         </label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <input class="form-control form-control form-control-solid @error('duration')is-invalid @enderror" type="text" id="duration" name="duration" value="{{ old('duration') ? old('duration') : (Carbon\Carbon::parse($data->begin_at)->format('m/d/Y') . ' - ' . Carbon\Carbon::parse($data->end_at)->format('m/d/Y')) }}" />
+                        <input class="form-control form-control form-control-solid @error('bed_qty')is-invalid @enderror" type="text" id="bed_qty" name="bed_qty" value="{{ old('bed_qty') ? old('bed_qty') : $data->bed_qty }}" />
                         <!--end::Input-->
                         <!--begin::Error-->
-                        @error('duration')
+                        @error('bed_qty')
+                            <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <!--end::Error-->
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-5">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                            <span class="required">Bed Type</span>
+                        </label>
+                        <!--end::Label-->
+                        <!--begin::Select-->
+                        <select class="form-select form-select-solid @error('bed_type')is-invalid @enderror" name="bed_type" id="bed_type" data-control="select2" data-placeholder="Select Bed Type">
+                            <option></option>
+                            <option value="King" {{ old('bed_type') ? (old('bed_type') == 'King' ? 'selected' : '') : ($data->bed_type == 'King' ? 'selected' : '') }}>King</option>
+                            <option value="Queen" {{ old('bed_type') ? (old('bed_type') == 'Queen' ? 'selected' : '') : ($data->bed_type == 'Queen' ? 'selected' : '') }}>Queen</option>
+                        </select>
+                        <!--end::Select-->
+                        <!--begin::Error-->
+                        @error('bed_type')
                             <span class="invalid-feedback d-block" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -110,24 +133,13 @@
 @push('scripts')
     <script type="text/javascript">
         $(function () {
-            Inputmask("% 999", {
+            Inputmask("Rp. 999.999.999", {
                 "numericInput": true
-            }).mask("#discount");
+            }).mask("#price");
 
-            $('#duration').daterangepicker({
-                autoUpdateInput: false,
-                locale: {
-                    cancelLabel: 'Clear'
-                }
-            });
-
-            $('#duration').on('apply.daterangepicker', function(ev, picker) {
-                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-            });
-
-            $('#duration').on('cancel.daterangepicker', function(ev, picker) {
-                $(this).val('');
-            });
+            Inputmask("9", {
+                "numericInput": true
+            }).mask("#bed_qty");
         })
     </script>
 @endpush

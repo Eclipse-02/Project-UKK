@@ -15,15 +15,15 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('room_id');
             $table->unsignedBigInteger('type_id');
-            $table->unsignedBigInteger('addon_id')->nullable();
             $table->unsignedBigInteger('user_id');
+            $table->string('addons')->nullable();
             $table->date('checkin');
             $table->date('checkout');
             $table->string('promotion_code')->nullable();
+            $table->string('status', 3);
             $table->timestamps();
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
             $table->foreign('type_id')->references('id')->on('room_types')->onDelete('cascade');
-            $table->foreign('addon_id')->references('id')->on('room_add_ons')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

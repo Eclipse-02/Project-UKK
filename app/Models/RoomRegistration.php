@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RoomRegistration extends Model
 {
@@ -12,11 +13,15 @@ class RoomRegistration extends Model
     protected $fillable = [
         'room_id',
         'type_id',
-        'add_on_id',
+        'addons',
         'user_id',
         'checkin',
         'checkout',
         'promotion_code'
+    ];
+
+    protected $casts = [
+        'addons' => 'array'
     ];
 
     public function room() {

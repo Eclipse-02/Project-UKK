@@ -88,6 +88,6 @@
     <script type="text/javascript">
         $(window).on('load', function() {
             $('#table_wrapper').addClass('px-5 py-5');
-        });
+        }); 
     </script>
 @endpush

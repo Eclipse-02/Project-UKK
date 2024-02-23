@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RoomRegistration extends Model
 {
@@ -18,4 +19,8 @@ class RoomRegistration extends Model
         'checkout',
         'promotion_code'
     ];
+
+    function user() : BelongsTo {
+        return $this->belongsTo(User::class);
+    }
 }

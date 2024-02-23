@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('room_regs', function (Blueprint $table) {
+        Schema::create('room_registrations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('room_id');
             $table->unsignedBigInteger('type_id');
@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('checkin');
             $table->date('checkout');
             $table->string('promotion_code')->nullable();
+            $table->string('status', 3);
             $table->timestamps();
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
             $table->foreign('type_id')->references('id')->on('room_types')->onDelete('cascade');

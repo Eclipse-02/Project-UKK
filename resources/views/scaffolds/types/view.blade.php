@@ -7,13 +7,13 @@
     <div class="card-header cursor-pointer my-2">
         <!--begin::Card title-->
         <div class="card-title m-0 flex-column">
-            <h3 class="fw-bolder m-0">Promotion Code Details</h3>
-            <div class="text-muted fs-7 fw-bold">Detail Kode Promosi</div>
+            <h3 class="fw-bolder m-0">Room Type Details</h3>
+            <div class="text-muted fs-7 fw-bold">Detail Tipe Kamar</div>
         </div>
         <!--end::Card title-->
         <!--start::Button-->
         <!--start::Action-->
-        <a href="{{ route('codes.index') }}" class="btn btn-flex btn-light btn-light btn-active-primary fw-bolder align-self-center">
+        <a href="{{ route('types.index') }}" class="btn btn-flex btn-light btn-light btn-active-primary fw-bolder align-self-center">
             <!--begin::Svg Icon | path: assets/media/icons/duotune/arrows/arr002.svg-->
             <span class="svg-icon svg-icon-muted svg-icon-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -31,11 +31,11 @@
         <!--begin::Input group-->
         <div class="row mb-10">
             <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">Code Name</label>
+            <label class="col-lg-4 fw-bold text-muted">Type Name</label>
             <!--begin::Label-->
             <!--begin::Label-->
             <div class="col-lg-8">
-                <span class="fw-bold fs-6 text-gray-800">{{ $data->code_name }}</span>
+                <span class="fw-bold fs-6 text-gray-800">{{ $data->name }}</span>
             </div>
             <!--begin::Label-->
         </div>
@@ -43,11 +43,11 @@
         <!--begin::Input group-->
         <div class="row mb-10">
             <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">Discount</label>
+            <label class="col-lg-4 fw-bold text-muted">Price</label>
             <!--begin::Label-->
             <!--begin::Label-->
             <div class="col-lg-8">
-                <span class="fw-bold fs-6 text-gray-800">% {{ $data->discount }}</span>
+                <span class="fw-bold fs-6 text-gray-800">{{ $data->price }}</span>
             </div>
             <!--begin::Label-->
         </div>
@@ -55,11 +55,11 @@
         <!--begin::Input group-->
         <div class="row mb-10">
             <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">Begin At</label>
+            <label class="col-lg-4 fw-bold text-muted">Bed Quantity</label>
             <!--begin::Label-->
             <!--begin::Label-->
             <div class="col-lg-8">
-                <span class="fw-bold fs-6 text-gray-800">{{ $data->begin_at }}</span>
+                <span class="fw-bold fs-6 text-gray-800">{{ $data->bed_qty }}</span>
             </div>
             <!--begin::Label-->
         </div>
@@ -67,11 +67,11 @@
         <!--begin::Input group-->
         <div class="row mb-10">
             <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">End At</label>
+            <label class="col-lg-4 fw-bold text-muted">Bed Type</label>
             <!--begin::Label-->
             <!--begin::Label-->
             <div class="col-lg-8">
-                <span class="fw-bold fs-6 text-gray-800">{{ $data->end_at }}</span>
+                <span class="fw-bold fs-6 text-gray-800">{{ $data->bed_type }}</span>
             </div>
             <!--begin::Label-->
         </div>

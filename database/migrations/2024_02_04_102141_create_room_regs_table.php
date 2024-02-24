@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->date('checkin');
             $table->date('checkout');
+            $table->string('for_another')->nullable();
             $table->string('promotion_code')->nullable();
             $table->timestamps();
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');

@@ -2,6 +2,7 @@
 
 // Default Files
 
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\PromotionCodeController;
 use App\Http\Controllers\RoomAddOnController;
 use App\Http\Controllers\RoomController;
@@ -107,6 +108,11 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
         Route::match(['put', 'patch'],'/{reg}', [RoomRegistrationController::class, 'update'])->name('registrations.update');
         Route::delete('/{reg}', [RoomRegistrationController::class, 'destroy'])->name('registrations.destroy');
         Route::get('/{reg}/edit', [RoomRegistrationController::class, 'edit'])->name('registrations.edit');
+    });
+
+    // Logs
+    Route::group(['prefix' => 'logs'], function() {
+        Route::get('/', [LogController::class, 'index'])->name('logs.index');
     });
 
 });

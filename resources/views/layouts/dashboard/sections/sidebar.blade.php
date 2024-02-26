@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link active" href="{{ route('home') }}">
+                    <a class="menu-link {{ request()->is('home') ? 'active' : '' }}" href="{{ route('home') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -116,7 +116,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="{{ route('facilities.index') }}">
+                    <a class="menu-link {{ request()->is('facilities') ? 'active' : '' }}" href="{{ route('facilities.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -131,7 +131,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="{{ route('types.index') }}">
+                    <a class="menu-link {{ request()->is('types') ? 'active' : '' }}" href="{{ route('types.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -146,7 +146,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="{{ route('addOns.index') }}">
+                    <a class="menu-link {{ request()->is('addOns') ? 'active' : '' }}" href="{{ route('addOns.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/layouts/lay010.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -161,7 +161,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="{{ route('codes.index') }}">
+                    <a class="menu-link {{ request()->is('codes') ? 'active' : '' }}" href="{{ route('codes.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/communication/com001.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -250,7 +250,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="{{ route('registrations.index') }}">
+                    <a class="menu-link {{ request()->is('registrations') ? 'active' : '' }}" href="{{ route('registrations.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/communication/com001.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -617,7 +617,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="{{ route('rooms.index') }}">
+                    <a class="menu-link {{ request()->is('rooms') ? 'active' : '' }}" href="{{ route('rooms.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/communication/com001.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -714,7 +714,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="../../demo1/dist/landing.html">
+                    <a class="menu-link {{ request()->is('logs') ? 'active' : '' }}" href="{{ route('logs.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/communication/com001.svg-->
                             <span class="svg-icon svg-icon-2">

@@ -145,7 +145,7 @@
                             <!--begin::Toolbar-->
                             <div class="flex-equal text-end ms-1">
                                 <a href="{{ route('sign-in') }}" class="btn btn-success">Sign In</a>
-                                <a href="{{ route('sign-up') }}" class="btn btn-info">Sign Up</a>
+                                <a href="{{ route('register') }}" class="btn btn-info">Sign Up</a>
                             </div>
                             <!--end::Toolbar-->
                         </div>
@@ -300,16 +300,22 @@
                                 </div>
                             </div>
                             <div class="form-check form-check-custom form-check-solid mt-2">
-                                <input class="form-check-input ms-2" type="checkbox" value="yourself"
+                                <input class="form-check-input ms-2" type="radio" value="yourself"
                                     id="orderForYourself" name="orderType" checked />
                                 <label class="form-check-label text-light" for="orderForYourself">
                                     Order for yourself
                                 </label>
 
-                                <input class="form-check-input ms-4 form-check-input-yes" type="checkbox"
+                                <input class="form-check-input ms-4 form-check-input-yes" type="radio"
                                     value="someoneElse" id="orderForSomeoneElse" name="orderType" />
                                 <label class="form-check-label text-light" for="orderForSomeoneElse">
                                     Order for someone else
+                                </label>
+
+                                <input class="form-check-input ms-4 form-check-input-yes" type="checkbox"
+                                    value="codePromotion" id="codePromotion" name="codePromotion" />
+                                <label class="form-check-label text-light" for="orderForSomeoneElse">
+                                    Do you have a promotional code?
                                 </label>
                             </div>
 
@@ -317,6 +323,10 @@
                                 <div class="col-md-6">
                                     <input type="text" class="form-control form-control-lg form-control-yes"
                                         placeholder="Enter a name">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control form-control-lg code"
+                                        placeholder="Enter the code here">
                                 </div>
                             </div>
 
@@ -714,7 +724,10 @@
 		const orderForYourselfCheckbox = document.getElementById('orderForYourself');
 		const orderForSomeoneElseCheckbox = document.getElementById('orderForSomeoneElse');
 		const enterNameInput = document.querySelector('.form-control-yes');
+        const codePromotion = document.getElementById('codePromotion');
+        const enterCodeInput = document.querySelector('.code');
 		$('.form-control-yes').hide();
+        $('.code').hide();
 
 		orderForYourselfCheckbox.addEventListener('change', function () {
 			if (this.checked) {
@@ -727,6 +740,14 @@
 				enterNameInput.style.display = 'block';
 			}
 		});
+
+        codePromotion.addEventListener('change', function() {
+            if (this.checked) {
+                enterCodeInput.style.display = 'block';
+            }else{
+                enterCodeInput.style.display = 'none';
+            }
+        });
 	</script>
     <script>
         const checkboxes = document.querySelectorAll('input[name="orderType"]');

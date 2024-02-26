@@ -12,10 +12,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\DataTables\RoomRegistrationDataTable;
 use App\Events\LogEvent;
-use App\Models\Room;
-use App\Models\RoomAddOn;
-use App\Models\RoomType;
-use App\Models\User;
 
 class RoomRegistrationController extends Controller
 {
@@ -138,9 +134,6 @@ class RoomRegistrationController extends Controller
      */
     public function destroy(RoomRegistration $reg)
     {
-        $roomRegistration->delete();
-
-        toastr()->success('Data Successfully Deleted!', 'Success!');
-        return redirect()->route('registrations.index');
+        //
     }
 }

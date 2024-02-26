@@ -38,6 +38,8 @@ Route::get('roomtype', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/sign-in', [App\Http\Controllers\HomeController::class, 'signIn'])->name('sign-in');
+Route::get('/sign-up', [App\Http\Controllers\HomeController::class, 'signUp'])->name('sign-up');
 
 // Authenticated & Verified
 Route::group(['middleware' => ['auth', 'verified']], function() {

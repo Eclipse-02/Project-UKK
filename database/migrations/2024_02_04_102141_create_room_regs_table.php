@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('addons')->nullable();
             $table->date('checkin');
             $table->date('checkout');
+            $table->string('for_another')->nullable();
             $table->string('promotion_code')->nullable();
             $table->string('status', 3);
             $table->timestamps();

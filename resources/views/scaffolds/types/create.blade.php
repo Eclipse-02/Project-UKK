@@ -136,7 +136,7 @@
                 "numericInput": true
             }).mask("#price");
 
-            Inputmask({"9",
+            Inputmask("9", { 
                 "numericInput": true
             }).mask("#bed_qty");
         })

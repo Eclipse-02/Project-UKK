@@ -250,7 +250,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link {{ request()->is('registrations') ? 'active' : '' }}" href="{{ route('registrations.index') }}">
+                    <a class="menu-link {{ request()->is('rooms') ? 'active' : '' }}" href="{{ route('rooms.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/communication/com001.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -617,7 +617,7 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link {{ request()->is('rooms') ? 'active' : '' }}" href="{{ route('rooms.index') }}">
+                    <a class="menu-link {{ request()->is('registrations') ? 'active' : '' }}" href="{{ route('registrations.index') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/communication/com001.svg-->
                             <span class="svg-icon svg-icon-2">

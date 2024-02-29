@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index'])->name('welcome');
 
-Route::get('facilities', function () {
+Route::get('facilitis', function () {
     return view('facilities');
 });
 

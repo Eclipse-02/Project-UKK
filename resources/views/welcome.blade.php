@@ -71,8 +71,8 @@
                                 <!--begin::Logo image-->
                                 <a href="../../demo1/dist/landing.html">
                                     <img alt="Logo"
-                                        src="{{ asset('source/html/theme/demo1/dist/assets/media/logos/logo-landing.svg') }}"
-                                        class="logo-default h-25px h-lg-30px" />
+                                        src="{{ asset('source/html/theme/demo1/dist/assets/media/logos/insitu.png') }}"
+                                        class="logo-default h-100px h-lg-100px" />
                                     <img alt="Logo"
                                         src="{{ asset('source/html/theme/demo1/dist/assets/media/logos/logo-landing-dark.svg') }}"
                                         class="logo-sticky h-20px h-lg-25px" />

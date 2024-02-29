@@ -61,12 +61,14 @@
             <!--begin::Label-->
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    @if ($data->addon_id == null)
+                    @if ($data->addons == null)
                         -
-                    @endif
-                    @foreach ($data->addons as $i)
+                    @else
+                        @foreach ($data->addons as $i)
                         - {{ $i }}
-                    @endforeach
+                        @endforeach
+                    @endif
+                    
                 </span>
             </div>
             <!--begin::Label-->
@@ -79,7 +81,7 @@
             <!--begin::Label-->
             <!--begin::Label-->
             <div class="col-lg-8">
-                <span class="fw-bold fs-6 text-gray-800">{{ Carbon\Carbon::format($data->checkin)->isoFormat('D, d M Y') - Carbon\Carbon::format($data->checkout)->isoFormat('D, d M Y') }}</span>
+                <span class="fw-bold fs-6 text-gray-800">{{ Carbon\Carbon::parse($data->checkin)->isoFormat('dddd, D MMMM Y') }} - {{ Carbon\Carbon::parse($data->checkout)->isoFormat('dddd, D MMMM Y') }}</span>
             </div>
             <!--begin::Label-->
         </div>
@@ -91,7 +93,13 @@
             <!--begin::Label-->
             <!--begin::Label-->
             <div class="col-lg-8">
-                <span class="fw-bold fs-6 text-gray-800">{{ $data->promotion_code }}</span>
+                <span class="fw-bold fs-6 text-gray-800">
+                    @if ($data->addons == null)
+                        -
+                    @else
+                        {{ $data->promotion_code }}
+                    @endif
+                </span>
             </div>
             <!--begin::Label-->
         </div>

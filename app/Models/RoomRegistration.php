@@ -17,7 +17,8 @@ class RoomRegistration extends Model
         'user_id',
         'checkin',
         'checkout',
-        'promotion_code'
+        'promotion_code',
+        'status'
     ];
 
     protected $casts = [

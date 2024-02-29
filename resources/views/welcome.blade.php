@@ -142,12 +142,26 @@
                                 </div>
                             </div>
                             <!--end::Menu wrapper-->
-                            <!--begin::Toolbar-->
-                            <div class="flex-equal text-end ms-1">
-                                <a href="{{ route('login') }}" class="btn btn-success">Sign In</a>
-                                <a href="{{ route('register') }}" class="btn btn-info">Sign Up</a>
-                            </div>
-                            <!--end::Toolbar-->
+                            @guest
+                                <!--begin::Toolbar-->
+                                <div class="flex-equal text-end ms-1">
+                                    <a href="{{ route('login') }}" class="btn btn-success">Sign In</a>
+                                    <a href="{{ route('register') }}" class="btn btn-info">Sign Up</a>
+                                </div>
+                                <!--end::Toolbar-->
+                                @else
+                                <!--begin::Toolbar-->
+                                <div class="flex-equal text-end ms-1">
+                                    <!--begin::Avatar-->
+                                    <a href="{{ route('home') }}">
+                                        <div class="symbol symbol-40px me-5">
+                                            <div class="symbol-label fs-2 fw-bold bg-warning text-inverse-warning">{{ auth()->user()->name[0] }}</div>
+                                        </div>
+                                    </a>
+                                    <!--end::Avatar-->
+                                </div>
+                                <!--end::Toolbar-->
+                            @endguest
                         </div>
                         <!--end::Wrapper-->
                     </div>

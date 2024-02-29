@@ -39,6 +39,13 @@ class RoomRegistrationDataTable extends DataTable
             ->addColumn('checkout', function ($q) {
                 return Carbon::parse($q->checkout)->isoFormat('D MMMM Y');
             })
+            ->addColumn('id', function ($q) {
+                if ($q->for_another != null) {
+                    return $q->for_another;
+                } else {
+                    return $q->user->name;
+                }
+            })
             ->addIndexColumn();
     }
 
@@ -47,7 +54,7 @@ class RoomRegistrationDataTable extends DataTable
      */
     public function query(RoomRegistration $model): QueryBuilder
     {
-        return $model->with(['room', 'type', 'addOn', 'user'])->newQuery();
+        return $model->with('user')->newQuery();
     }
 
     /**
@@ -79,7 +86,7 @@ class RoomRegistrationDataTable extends DataTable
     {
         return [
             Column::make('DT_RowIndex')->width(50)->title('No'),
-            Column::make('user.name')->width(100)->title('Guest Name'),
+            Column::make('id')->width(100)->title('Guest Name'),
             Column::make('checkin')->width(100),
             Column::make('checkout')->width(100),
             Column::make('status')->width(100),

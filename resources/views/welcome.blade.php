@@ -272,31 +272,40 @@
                 <!--begin::Container-->
                 <div class="container">
                     <!--begin::Heading-->
-                    <form action="{{ route('registrations.create') }}" method="POST">
+                    @error('rooms')
+                        <div class="alert alert-danger mt-2">
+                            <strong>Mohon Maaf!</strong> Jumlah kamar tidak mencukupi.
+                        </div>
+                    @enderror
+                    @error('checkout')
+                        <div class="alert alert-danger mt-2">
+                            <strong>Tanggal Check-out harus setelah tanggal Check-in.</strong>
+                        </div>
+                    @enderror
+                    <form action="{{ route('registrations.store') }}" method="POST">
                         @csrf
+
                         <div class="row g-2 mt-4">
                             <div class="col-md">
-                                <input class="form-control form-control-lg" id="kt_datepicker_7"
+                                <input class="form-control form-control-lg" id="kt_datepicker_7" name="checkin"
                                     placeholder="Check-in">
                             </div>
                             <div class="col-md">
-                                <input class="form-control form-control-lg" id="kt_datepicker_8"
+                                <input class="form-control form-control-lg" id="kt_datepicker_8" name="checkout"
                                     placeholder="Check-out">
                             </div>
                             <div class="col-md">
-                                <input class="form-control form-control-lg" type="number"
+                                <input class="form-control form-control-lg" type="number" name="total_rooms"
                                     placeholder="Jumlah Kamar">
                             </div>
                             <div class="col-md">
                                 <div class="form-floating">
-                                    <select class="form-select" id="floatingSelectGrid"
-                                        aria-label="Floating label select example">
-                                        <option selected>Silahkan Pilih Tipe Kamar</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                    <select class="form-select" data-control="select2" data-placeholder="Silahkan Pilih TIpe Kamar" name="type_id">
+                                        <option></option>
+                                        @foreach ($types as $i)
+                                            <option value="{{ $i->id }}">{{ $i->name }}</option>
+                                        @endforeach
                                     </select>
-                                    <label for="floatingSelectGrid">Tipe Kamar</label>
                                 </div>
                             </div>
                             <div class="form-check form-check-custom form-check-solid mt-2">
@@ -321,8 +330,7 @@
 
                             <div class="row g-2 mt-2">
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-lg form-control-yes"
-                                        placeholder="Enter a name">
+                                    <input type="text" name="for_another" class="form-control form-control-lg form-control-yes" placeholder="Enter a name">
                                 </div>
                                 <div class="col-md-6">
                                     <input type="text" class="form-control form-control-lg code"

@@ -24,9 +24,9 @@ class RoomRegistrationDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('action', 'scaffolds.registrations.action')
             ->addColumn('status', function($q) {
-                if ($q->status = "AV") {
+                if ($q->status == "AV") {
                     return "Available";
-                } else if ($q->status = "BK") {
+                } else if ($q->status == "BK") {
                     return "Booked";
                 } else {
                     return "In Cleaning";

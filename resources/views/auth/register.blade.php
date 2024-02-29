@@ -44,7 +44,7 @@ License: For each use you must have a valid license purchased only from above li
 				<div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
 					<!--begin::Logo-->
 					<a href="../../demo11/dist/index.html" class="mb-12">
-						<img alt="Logo" src="{{ asset('source/html/theme/demo1/dist/assets/media/logos/logo-1.svg') }}" class="h-40px" />
+						<img alt="Logo" src="{{ asset('source/html/theme/demo1/dist/assets/media/logos/insitu2.jpeg') }}" class="h-100px" />
 					</a>
 					<!--end::Logo-->
 					<!--begin::Wrapper-->
@@ -59,21 +59,10 @@ License: For each use you must have a valid license purchased only from above li
 								<!--end::Title-->
 								<!--begin::Link-->
 								<div class="text-gray-400 fw-bold fs-4">Already have an account?
-								<a href="../../demo11/dist/authentication/flows/basic/sign-in.html" class="link-primary fw-bolder">Sign in here</a></div>
+								<a href="{{ route('login') }}" class="link-primary fw-bolder">Sign in here</a></div>
 								<!--end::Link-->
 							</div>
 							<!--end::Heading-->
-							<!--begin::Action-->
-							<button type="button" class="btn btn-light-primary fw-bolder w-100 mb-10">
-							<img alt="Logo" src="{{ asset('source/html/theme/demo1/dist/assets/media/svg/brand-logos/google-icon.svg') }}" class="h-20px me-3" />Sign in with Google</button>
-							<!--end::Action-->
-							<!--begin::Separator-->
-							<div class="d-flex align-items-center mb-10">
-								<div class="border-bottom border-gray-300 mw-50 w-100"></div>
-								<span class="fw-bold text-gray-400 fs-7 mx-2">OR</span>
-								<div class="border-bottom border-gray-300 mw-50 w-100"></div>
-							</div>
-							<!--end::Separator-->
 							<!--begin::Input group-->
 							<div class="row fv-row mb-7">
 								<!--begin::Col-->
@@ -163,15 +152,6 @@ License: For each use you must have a valid license purchased only from above li
 								<input class="form-control form-control-lg form-control-solid" type="password" placeholder="" id="confirm-password" name="password_confirmation" autocomplete="new-password" />
 							</div>
 							<!--end::Input group-->
-							<!--begin::Input group-->
-							<div class="fv-row mb-10">
-								<label class="form-check form-check-custom form-check-solid form-check-inline">
-									<input class="form-check-input" type="checkbox" name="toc" value="1" />
-									<span class="form-check-label fw-bold text-gray-700 fs-6">I Agree
-									<a href="#" class="ms-1 link-primary">Terms and conditions</a>.</span>
-								</label>
-							</div>
-							<!--end::Input group-->
 							<!--begin::Actions-->
 							<div class="text-center">
 								<button type="submit" class="btn btn-lg btn-primary">
@@ -187,17 +167,6 @@ License: For each use you must have a valid license purchased only from above li
 					<!--end::Wrapper-->
 				</div>
 				<!--end::Content-->
-				<!--begin::Footer-->
-				<div class="d-flex flex-center flex-column-auto p-10">
-					<!--begin::Links-->
-					<div class="d-flex align-items-center fw-bold fs-6">
-						<a href="https://keenthemes.com" class="text-muted text-hover-primary px-2">About</a>
-						<a href="mailto:support@keenthemes.com" class="text-muted text-hover-primary px-2">Contact</a>
-						<a href="https://1.envato.market/EA4JP" class="text-muted text-hover-primary px-2">Contact Us</a>
-					</div>
-					<!--end::Links-->
-				</div>
-				<!--end::Footer-->
 			</div>
 			<!--end::Authentication - Sign-up-->
 		</div>

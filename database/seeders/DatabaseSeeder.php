@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // \App\Models\User::factory(10)->create();
+        
+        $this->call(LaratrustSeeder::class);
 
         \App\Models\User::create([
             'name' => 'Admin',
@@ -23,7 +25,31 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('12345678'),
             'no_hp' => '088297976356',
-        ]);
+        ])->addRole('admin');
+
+        \App\Models\User::create([
+            'name' => 'Receptionist',
+            'email' => 'receptionist@gmail.com',
+            'email_verified_at' => Carbon::now(),
+            'password' => Hash::make('12345678'),
+            'no_hp' => '088297976356',
+        ])->addRole('receptionist');
+
+        \App\Models\User::create([
+            'name' => 'Cleaner',
+            'email' => 'cleaner@gmail.com',
+            'email_verified_at' => Carbon::now(),
+            'password' => Hash::make('12345678'),
+            'no_hp' => '088297976356',
+        ])->addRole('cleaner');
+
+        \App\Models\User::create([
+            'name' => 'User',
+            'email' => 'user@gmail.com',
+            'email_verified_at' => Carbon::now(),
+            'password' => Hash::make('12345678'),
+            'no_hp' => '088297976356',
+        ])->addRole('user');
 
         $this->call([
             PromotionSeeder::class,

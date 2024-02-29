@@ -106,6 +106,30 @@
                         </div>
                         <!--end::Input group-->
                     @endif
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-5">
+                        <!--begin::Label-->
+                        <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                            <span class="required">Status</span>
+                        </label>
+                        <!--end::Label-->
+                        <!--begin::Select-->
+                        <select class="form-select form-select-solid @error('status')is-invalid @enderror" name="status" id="status" data-control="select2" data-placeholder="Select Bed Type">
+                            <option></option>
+                            <option value="AV" {{ old('status') ? (old('status') == 'AV' ? 'selected' : '') : ($data->status == 'AV' ? 'selected' : '') }}>Available</option>
+                            <option value="BK" {{ old('status') ? (old('status') == 'BK' ? 'selected' : '') : ($data->status == 'BK' ? 'selected' : '') }}>Booked</option>
+                            <option value="IC" {{ old('status') ? (old('status') == 'IC' ? 'selected' : '') : ($data->status == 'IC' ? 'selected' : '') }}>In Cleaning</option>
+                        </select>
+                        <!--end::Select-->
+                        <!--begin::Error-->
+                        @error('status')
+                            <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <!--end::Error-->
+                    </div>
+                    <!--end::Input group-->
                 </div>
                 <!--end::Card body-->
                 <!--begin::Card footer-->

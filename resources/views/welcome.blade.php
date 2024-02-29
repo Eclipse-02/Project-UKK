@@ -144,7 +144,7 @@
                             <!--end::Menu wrapper-->
                             <!--begin::Toolbar-->
                             <div class="flex-equal text-end ms-1">
-                                <a href="{{ route('sign-in') }}" class="btn btn-success">Sign In</a>
+                                <a href="{{ route('login') }}" class="btn btn-success">Sign In</a>
                                 <a href="{{ route('register') }}" class="btn btn-info">Sign Up</a>
                             </div>
                             <!--end::Toolbar-->

@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\DataTables\RoomRegistrationDataTable;
 use App\Events\LogEvent;
+use Carbon\Carbon;
 
 class RoomRegistrationController extends Controller
 {
@@ -37,37 +38,51 @@ class RoomRegistrationController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'room_id' => 'required',
             'type_id' => 'required',
-            'addons' => 'required',
-            'user_id' => 'required',
-            'checkin' => 'required',
-            'checkout' => 'required',
+            'total_rooms' => 'required',
+            'checkin' => 'required|date',
+            'checkout' => 'required|date|after:checkin',
         ]);
 
-        $dates = explode(' - ', $request->duration);
+        $rooms = Room::where([
+            ['type_id', '=', $request->type_id],
+            ['status', '=', 'AV'],
+        ])
+        ->inRandomOrder()
+        ->get();
 
-        $user = User::where('id', $request->user_id)->first();
-        $room = Room::where('id', $request->room_id)->first();
+        if ($rooms->count() <= $request->total_rooms) {
+            toastr()->error('We don`t have enough rooms!', 'Sorry!');
+            return redirect()->back()->withErrors(['rooms' => 'Not enough rooms!'])->withInput();
+        }
+
+        $user = auth()->user();
 
         if ($validator->fails()) {
             toastr()->error('Something went wrong!', 'Oops!');
             return redirect()->back()->withErrors($validator)->withInput();
         } else {
-            RoomRegistration::create([
-                'room_id' => $request->room_id,
-                'type_id' => $request->type_id,
-                'add_on_id' => $request->add_on_id,
-                'user_id' => $request->user_id,
-                'checkin' => $dates[0],
-                'checkout' => $dates[0],
-                'status' => $request->status,
-            ]);
+            for ($i=0; $i < $request->total_rooms; $i++) { 
 
-            event(new LogEvent($user->name, $room->room_number, $request->status));
+                RoomRegistration::create([
+                    'room_id' => $rooms[$i]->id,
+                    'type_id' => $request->type_id,
+                    'add_on_id' => $request->add_on_id,
+                    'user_id' => $user->id,
+                    'checkin' => Carbon::parse($request->checkin)->format('Y-m-d H:i:s'),
+                    'checkout' => Carbon::parse($request->checkout)->format('Y-m-d H:i:s'),
+                    'status' => 'BK',
+                ]);
+
+                Room::where('id', $rooms[$i]->id)->update([
+                    'status' => 'BK'
+                ]);
+
+                event(new LogEvent($user->name, $rooms[$i]->room_number, 'BK'));
+            }
 
             toastr()->success('Data Saved Successfully!', 'Success!');
-            return redirect()->route('registrations.index');
+            return redirect()->route('welcome');
         }
     }
 
@@ -86,10 +101,10 @@ class RoomRegistrationController extends Controller
      */
     public function edit($reg)
     {
-        $data = RoomRegistration::with('user')->where('id', $reg)->get();
-        $rooms = Room::all();
-        $types = RoomType::all();
-        $addons = RoomAddOn::all();
+        $data = RoomRegistration::with('user', 'room', 'type')->where('id', $reg)->first();
+        // $rooms = Room::all();
+        // $types = RoomType::all();
+        // $addons = RoomAddOn::all();
 
         return view('scaffolds.registrations.edit', compact('data', 'rooms', 'types', 'addons'));
     }
@@ -103,7 +118,7 @@ class RoomRegistrationController extends Controller
             'status' => 'required',
         ]);
 
-        $dates = explode(' - ', $request->duration);
+        // $dates = explode(' - ', $request->duration);
 
         $user = User::where('id', $request->user_id)->first();
         $room = Room::where('id', $request->room_id)->first();
@@ -113,12 +128,6 @@ class RoomRegistrationController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         } else {
             $reg->update([
-                'room_id' => $request->room_id,
-                'type_id' => $request->type_id,
-                'add_on_id' => $request->add_on_id,
-                'user_id' => $request->user_id,
-                'checkin' => $dates[0],
-                'checkout' => $dates[0],
                 'status' => $request->status,
             ]);
 

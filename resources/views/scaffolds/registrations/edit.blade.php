@@ -43,7 +43,7 @@
                         </label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <input class="form-control form-control form-control-solid @error('user_id')is-invalid @enderror" type="text" id="user_id" name="user_id" value="{{ old('user_id') ? old('user_id') : $data->user->name }}" />
+                        <input class="form-control form-control form-control-solid @error('user_id')is-invalid @enderror" type="text" id="user_id" name="user_id" value="{{ old('user_id') ? old('user_id') : $data->user->name }}" disabled />
                         <!--end::Input-->
                         <!--begin::Error-->
                         @error('user_id')
@@ -61,14 +61,9 @@
                             <span class="required">Room Name</span>
                         </label>
                         <!--end::Label-->
-                        <!--begin::Select-->
-                        <select class="form-select form-select-solid @error('room_id')is-invalid @enderror" name="room_id" id="room_id" data-control="select2" data-placeholder="Select Bed Type">
-                            <option></option>
-                            @foreach ($rooms as $i)
-                                <option value="{{ $i->id }}" {{ old('room_id') ? (old('room_id') == $i->id ? 'selected' : '') : ($data->room_id == $i->id ? 'selected' : '') }}>{{ $i->name }}</option>
-                            @endforeach
-                        </select>
-                        <!--end::Select-->
+                        <!--begin::Input-->
+                        <input class="form-control form-control form-control-solid @error('room_id')is-invalid @enderror" type="text" id="room_id" name="room_id" value="{{ old('room_id') ? old('room_id') : $data->room->room_number }}" disabled />
+                        <!--end::Input-->
                         <!--begin::Error-->
                         @error('room_id')
                             <span class="invalid-feedback d-block" role="alert">
@@ -85,14 +80,9 @@
                             <span class="required">Room Type</span>
                         </label>
                         <!--end::Label-->
-                        <!--begin::Select-->
-                        <select class="form-select form-select-solid @error('room_type')is-invalid @enderror" name="room_type" id="room_type" data-control="select2" data-placeholder="Select Bed Type">
-                            <option></option>
-                            @foreach ($types as $i)
-                                <option value="{{ $i->id }}" {{ old('room_type') ? (old('room_type') == $i->id ? 'selected' : '') : ($data->room_type == $i->id ? 'selected' : '') }}>{{ $i->name }}</option>
-                            @endforeach
-                        </select>
-                        <!--end::Select-->
+                        <!--begin::Input-->
+                        <input class="form-control form-control form-control-solid @error('room_type')is-invalid @enderror" type="text" id="room_type" name="room_type" value="{{ old('room_type') ? old('room_type') : $data->type->name }}" disabled />
+                        <!--end::Input-->
                         <!--begin::Error-->
                         @error('room_type')
                             <span class="invalid-feedback d-block" role="alert">
@@ -110,7 +100,7 @@
                         </label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <input class="form-control form-control form-control-solid @error('duration')is-invalid @enderror" type="text" id="duration" name="duration" value="{{ old('duration') ? old('duration') : (Carbon\Carbon::parse($data->begin_at)->format('m/d/Y') . ' - ' . Carbon\Carbon::parse($data->end_at)->format('m/d/Y')) }}" />
+                        <input class="form-control form-control form-control-solid @error('duration')is-invalid @enderror" type="text" id="duration" name="duration" value="{{ old('duration') ? old('duration') : (Carbon\Carbon::parse($data->begin_at)->format('m/d/Y') . ' - ' . Carbon\Carbon::parse($data->end_at)->format('m/d/Y')) }}" disabled />
                         <!--end::Input-->
                         <!--begin::Error-->
                         @error('duration')
@@ -134,7 +124,6 @@
                             <option value="AV" {{ old('status') ? (old('status') == 'AV' ? 'selected' : '') : ($data->status == 'AV' ? 'selected' : '') }}>Available</option>
                             <option value="BK" {{ old('status') ? (old('status') == 'BK' ? 'selected' : '') : ($data->status == 'BK' ? 'selected' : '') }}>Booked</option>
                             <option value="IC" {{ old('status') ? (old('status') == 'IC' ? 'selected' : '') : ($data->status == 'IC' ? 'selected' : '') }}>In Cleaning</option>
-                            <option value="CL" {{ old('status') ? (old('status') == 'CL' ? 'selected' : '') : ($data->status == 'CL' ? 'selected' : '') }}>Cancelled</option>
                         </select>
                         <!--end::Select-->
                         <!--begin::Error-->
@@ -160,3 +149,25 @@
     </div>
     <!--end::Col-->
 @endsection
+
+@push('scripts')
+    <script>
+        $(function () {
+            $('#duration').daterangepicker({
+                autoUpdateInput: false,
+                locale: {
+                    format: 'MM-DD-YYYY',
+                    cancelLabel: 'Clear'
+                }
+            });
+
+            $('#duration').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            });
+
+            $('#duration').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+            });
+        });
+    </script>
+@endpush

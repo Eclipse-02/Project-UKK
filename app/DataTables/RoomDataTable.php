@@ -23,6 +23,15 @@ class RoomDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'scaffolds.rooms.action')
+            ->addColumn('status', function($q) {
+                if ($q->status == "AV") {
+                    return "Available";
+                } else if ($q->status == "BK") {
+                    return "Booked";
+                } else {
+                    return "In Cleaning";
+                }
+            })
             ->addIndexColumn();
     }
 
@@ -31,7 +40,7 @@ class RoomDataTable extends DataTable
      */
     public function query(Room $model): QueryBuilder
     {
-        return $model->newQuery();
+        return $model->with('type')->newQuery();
     }
 
     /**
@@ -63,7 +72,7 @@ class RoomDataTable extends DataTable
     {
         return [
             Column::make('DT_RowIndex')->width(50)->title('No'),
-            Column::make('type_id')->width(100),
+            Column::make('type.name')->width(100),
             Column::make('room_number')->width(100),
             Column::make('status')->width(100),
             Column::computed('action')

@@ -71,7 +71,7 @@
                 <!--end::Stats-->
                 <!--start::Table-->
                 <div class="table-responsive">
-                    <table class="table table-striped gy-7 gs-7">
+                    <table class="table table-striped gy-7 gs-7 vh-50">
                         <thead>
                             <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                                 <th class="min-w-200px">Name</th>

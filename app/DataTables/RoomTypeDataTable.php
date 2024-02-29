@@ -23,6 +23,9 @@ class RoomTypeDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'scaffolds.types.action')
+            ->addColumn('price', function ($q) {
+                return number_format($q->price, 0, '', '.');
+            })
             ->addIndexColumn();
     }
 

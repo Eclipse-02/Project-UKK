@@ -2,15 +2,16 @@
 
 namespace App\DataTables;
 
+use Carbon\Carbon;
 use App\Models\PromotionCode;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
 class PromotionCodeDataTable extends DataTable
 {
@@ -23,6 +24,15 @@ class PromotionCodeDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'scaffolds.codes.action')
+            ->addColumn('discount', function ($q) {
+                return '% ' . $q->discount;
+            })
+            ->addColumn('begin_at', function ($q) {
+                return Carbon::parse($q->begin_at)->isoFormat('D MMMM Y');
+            })
+            ->addColumn('end_at', function ($q) {
+                return Carbon::parse($q->end_at)->isoFormat('D MMMM Y');
+            })
             ->addIndexColumn();
     }
 

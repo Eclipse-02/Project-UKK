@@ -26,7 +26,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('facilities', function () {
+Route::get('facilitis', function () {
     return view('facilities');
 });
 

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\RoomFacility;
 use App\Models\RoomType;
 use Illuminate\Support\Facades\Validator;
+use App\Events\LogEvent;
 
 class RoomController extends Controller
 {
@@ -89,6 +90,7 @@ class RoomController extends Controller
         $validator = Validator::make($request->all(), [
             'room_type' => 'required',
             'room_number' => 'required',
+            'status' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -99,8 +101,10 @@ class RoomController extends Controller
                 'type_id' => $request->room_type,
                 'room_number' => $request->room_number,
                 // 'facility' => $request->facility ?? null,
-                'status' => 'AV',
+                'status' => $request->status,
             ]);
+
+            event(new LogEvent(auth()->user()->name, $request->room_number, $request->status));
 
             toastr()->success('Data Updated Successfully!', 'Success!');
             return redirect()->route('rooms.index');

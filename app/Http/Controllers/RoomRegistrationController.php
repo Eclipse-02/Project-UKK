@@ -106,7 +106,7 @@ class RoomRegistrationController extends Controller
         // $types = RoomType::all();
         // $addons = RoomAddOn::all();
 
-        return view('scaffolds.registrations.edit', compact('data', 'rooms', 'types', 'addons'));
+        return view('scaffolds.registrations.edit', compact('data'));
     }
 
     /**

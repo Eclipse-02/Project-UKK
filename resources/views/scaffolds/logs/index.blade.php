@@ -85,7 +85,15 @@
                                 <tr>
                                     <td>{{ $i->name }}</td>
                                     <td>{{ $i->room_num }}</td>
-                                    <td>{{ $i->status }}</td>
+                                    <td>
+                                        @if ($i->status == 'AV')
+                                            Available
+                                        @elseif ($i->status == 'BK')
+                                            Booked
+                                        @else
+                                            In Cleaning
+                                        @endif
+                                    </td>
                                     <td>{{ Carbon\Carbon::parse($i->created_at)->isoFormat('LLLL') }}</td>
                                 </tr>
                             @endforeach

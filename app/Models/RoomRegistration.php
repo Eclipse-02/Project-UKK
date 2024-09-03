@@ -18,16 +18,14 @@ class RoomRegistration extends Model
         'checkin',
         'checkout',
         'promotion_code',
-        'status'
+        'status',
+        'for_another'
     ];
 
     protected $casts = [
+        'room_id' => 'array',
         'addons' => 'array'
     ];
-
-    public function room() {
-        return $this->belongsTo(Room::class, 'room_id');
-    }
 
     public function type() {
         return $this->belongsTo(RoomType::class, 'type_id');

@@ -58,6 +58,7 @@ Route::group(['middleware' => ['auth', 'verified']], function() {
             Route::match(['put', 'patch'],'/{reg}', [RoomRegistrationController::class, 'update'])->name('registrations.update');
             Route::delete('/{reg}', [RoomRegistrationController::class, 'destroy'])->name('registrations.destroy');
             Route::get('/{reg}/edit', [RoomRegistrationController::class, 'edit'])->name('registrations.edit');
+            Route::get('/invoice/{reg}', [RoomRegistrationController::class, 'invoice'])->name('registrations.invoice');
         });
 
     });

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('room_registrations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('room_id');
+            $table->string('room_id', 255);
             $table->unsignedBigInteger('type_id');
             $table->unsignedBigInteger('user_id');
             $table->string('addons')->nullable();
@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('promotion_code')->nullable();
             $table->string('status', 3);
             $table->timestamps();
-            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
             $table->foreign('type_id')->references('id')->on('room_types')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

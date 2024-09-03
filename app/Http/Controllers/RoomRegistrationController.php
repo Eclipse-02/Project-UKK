@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\DataTables\RoomRegistrationDataTable;
 use App\Events\LogEvent;
+use App\Models\PromotionCode;
 use Carbon\Carbon;
 
 class RoomRegistrationController extends Controller
@@ -51,7 +52,27 @@ class RoomRegistrationController extends Controller
         ->inRandomOrder()
         ->get();
 
-        if ($rooms->count() <= $request->total_rooms) {
+        $registrations = RoomRegistration::whereDate('checkin', '>=', $request->checkin)
+                         ->whereDate('checkout', '<=', $request->checkout)
+                         ->first();
+
+        $promotion = PromotionCode::where('code_name', $request->promotion_code)->first();
+
+        $check_promotion = $promotion->whereDate('begin_at', '>=', Carbon::now())
+                                     ->whereDate('end_at', '<=', Carbon::now())
+                                     ->first();
+
+        if (!$check_promotion) {
+            toastr()->error('This code promotion is invalid!', 'Sorry!');
+            return redirect()->back()->withErrors(['rooms' => 'Code is invalid!'])->withInput();
+        }
+
+        if ($registrations) {
+            toastr()->error('The room is already booked!', 'Sorry!');
+            return redirect()->back()->withErrors(['rooms' => 'Room is already booked!'])->withInput();
+        }
+
+        if ($rooms->count() < $request->total_rooms) {
             toastr()->error('We don`t have enough rooms!', 'Sorry!');
             return redirect()->back()->withErrors(['rooms' => 'Not enough rooms!'])->withInput();
         }
@@ -64,22 +85,27 @@ class RoomRegistrationController extends Controller
         } else {
             for ($i=0; $i < $request->total_rooms; $i++) { 
 
-                RoomRegistration::create([
-                    'room_id' => $rooms[$i]->id,
-                    'type_id' => $request->type_id,
-                    'add_on_id' => $request->add_on_id,
-                    'user_id' => $user->id,
-                    'checkin' => Carbon::parse($request->checkin)->format('Y-m-d H:i:s'),
-                    'checkout' => Carbon::parse($request->checkout)->format('Y-m-d H:i:s'),
-                    'status' => 'BK',
-                ]);
-
                 Room::where('id', $rooms[$i]->id)->update([
                     'status' => 'BK'
                 ]);
 
+                $room_ids[] = $rooms[$i]->id;
                 event(new LogEvent($user->name, $rooms[$i]->room_number, 'BK'));
             }
+
+            // dd($room_ids);
+
+            RoomRegistration::create([
+                'room_id' => $room_ids,
+                'type_id' => $request->type_id,
+                'add_on_id' => $request->add_on_id,
+                'user_id' => $user->id,
+                'for_another' => $request->for_another ?? null,
+                'for_another' => $request->promotion_code ?? null,
+                'checkin' => Carbon::parse($request->checkin)->format('Y-m-d H:i:s'),
+                'checkout' => Carbon::parse($request->checkout)->format('Y-m-d H:i:s'),
+                'status' => 'BK',
+            ]);
 
             toastr()->success('Data Saved Successfully!', 'Success!');
             return redirect()->route('welcome');
@@ -91,9 +117,14 @@ class RoomRegistrationController extends Controller
      */
     public function show($reg)
     {
-        $data = RoomRegistration::where('id', $reg)->with(['room', 'type', 'addOn', 'user'])->first();
+        $data = RoomRegistration::where('id', $reg)->with(['type', 'addOn', 'user'])->first();
+        foreach ($data->room_id as $value) {
+            $room = Room::where('id', $value)->first();
 
-        return view('scaffolds.registrations.view', compact('data'));
+            $room_num[] = $room->room_number;
+        }
+
+        return view('scaffolds.registrations.view', compact('data', 'room_num'));
     }
 
     /**
@@ -144,5 +175,30 @@ class RoomRegistrationController extends Controller
     public function destroy(RoomRegistration $reg)
     {
         //
+    }
+
+    public function invoice(RoomRegistration $reg)
+    {
+        $data = $reg;
+        $discount = PromotionCode::where('code_name', $data->promotion_code)->first();
+        if ($data->addons) {
+            foreach ($data->addons as $i) {
+                $addons[] = RoomAddOn::where('id', $i)->first();
+            }
+        } else {
+            $addons = [];
+        }
+
+        foreach ($addons as $i) {
+            $addons_price =+ $i->price;
+        }
+
+        $total_price = $addons_price + ($data->type->price * count($data->room_id));
+
+        if ($discount) {
+            $total_price = $total_price * 10 / 100;
+        }
+
+        return view('scaffolds.registrations.invoice', compact('data', 'addons', 'total_price'));
     }
 }

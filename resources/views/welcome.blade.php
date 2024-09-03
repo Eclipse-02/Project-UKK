@@ -347,7 +347,7 @@
                                     <input type="text" name="for_another" class="form-control form-control-lg form-control-yes" placeholder="Enter a name">
                                 </div>
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control form-control-lg code"
+                                    <input type="text" name="promotion_code" class="form-control form-control-lg code"
                                         placeholder="Enter the code here">
                                 </div>
                             </div>

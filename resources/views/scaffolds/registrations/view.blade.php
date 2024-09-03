@@ -43,14 +43,30 @@
         <!--begin::Input group-->
         <div class="row mb-10">
             <!--begin::Label-->
-
-            <label class="col-lg-4 fw-bold text-muted">Room Number</label>
+            <label class="col-lg-4 fw-bold text-muted">Rooms</label>
             <!--begin::Label-->
             <!--begin::Label-->
             <div class="col-lg-8">
-                <span class="fw-bold fs-6 text-gray-800">{{ $data->room->room_number }}</span>
+                <span class="fw-bold fs-6 text-gray-800">{{ $room_num[0] }}</span>
             </div>
             <!--begin::Label-->
+            @if (count($room_num) > 1)
+            @php
+                array_shift($room_num)
+            @endphp
+            @foreach ($room_num as $i)
+            <!--begin::Label-->
+            <label class="col-lg-4 fw-bold text-muted"></label>
+            <!--begin::Label-->
+            <!--begin::Label-->
+            <div class="col-lg-8">
+                <span class="fw-bold fs-6 text-gray-800">
+                    {{ $i }}
+                </span>
+            </div>
+            <!--begin::Label-->
+            @endforeach
+            @endif
         </div>
         <!--end::Input group-->
         <!--begin::Input group-->
